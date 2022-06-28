@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block user_actions %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'courses:list_courses' %}">Courses</a>
+</li>
+{% endblock user_actions %}
+
+{% block session_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+    </li>
+{% endblock session_actions %}
+
+{% block content %}
+<main class="course-creation-container">
+    <form method="post" class="creation-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-create-course">Create</button>
+    </form>
+</main>
+{% endblock content %}

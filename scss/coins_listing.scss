@@ -1,0 +1,37 @@
+@use 'global' as *;
+
+.cryptos-container {
+    margin: 1rem 5vw;
+
+    .top-n-containter {
+        margin: 1rem 0;
+    }
+
+    .crypto-quote-table {
+        font-size: calc(.25rem + 1vw);
+
+        .sortable-col {
+            cursor: pointer;
+        }
+
+        .crypto-listing {
+            td {
+                vertical-align: middle;
+            }
+            .align-table-number {
+                text-align: right;
+            }
+            .crypto-img-container {
+                width: calc(1rem + 2vw);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .crypto-img {
+                    border-radius: 1rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

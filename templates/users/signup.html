@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block session_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:login' %}">Sign In</a>
+    </li>
+{% endblock session_actions %}
+
+{% block content %}
+    <main>
+        <div id="sign-up-container" class="sign-up-container">
+            <div class="card card-dark-side card-move-right">
+                <div class="card-form">
+                    <h2 class="white-text">Wellcome back</h2>
+                    <a href="{% url 'users:login' %}" type="button" class="btn btn-sign-in">
+                        Sign in
+                    </a>
+                </div>
+            </div>
+            <div class="card card-light-side">
+                <div class="card-form">
+                    <h2>Sign up</h2>
+                    <form class="sign-in-form" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content%}

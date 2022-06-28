@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block user_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:list_courses' %}">Courses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:create_course' %}">Create course</a>
+    </li>
+{% endblock user_actions %}
+
+{% block session_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+    </li>
+{% endblock session_actions %}
+
+{% block content %}
+<main class="cryptos-container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row top-n-containter">
+            <div class="col-md-4">
+                <label for="ecosystem" class="form-label">Ecosystem</label>
+                <select class="form-select" name="ecosystem" id="ecosystem">
+                    <option value="avalanche">Avalanche</option>
+                    <option value="solana">Solana</option>
+                    <option value="moonriver">Moonriver</option>
+                    <option value="injective">Injective</option>
+                    <option value="ethereum">Ethereum</option>
+                    <option value="fantom">Fantom</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" name="category" id="category">
+                    <option value="coin">Coin</option>
+                    <option value="token">Token</option>
+                </select>
+                <!--
+                <label for="consensus" class="form-label">Consensus</label>
+                <select class="form-select" name="consensus" id="consensus">
+                    <option value="pow">Proof of Work</option>
+                    <option value="pos">Proof of Stake</option>
+                    <option value="dpos">Delegated Proof of Stake</option>
+                    <option value="poet">Proof of Elapsed Time</option>
+                    <option value="poa">Proof of Authority</option>
+                    <option value="poc">Proof of Capacity</option>
+                    <option value="pob">Proof of Burn</option>
+                    <option value="bft">Byzantine Fault Tolerance</option>
+                    <option value="poi">Proof of Importance</option>
+                    <option value="dag">Direct Acyclic Graphs</option>
+                </select>
+                <label for="top-n" class="form-label">Top N</label>
+                <select class="form-select" name="top-n" id="top-n">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                <br>
+                -->
+            </div>
+            <div class="col-md-4">
+                <br>
+                <button type="submit" style="width: 100%;">Search</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover">
+        <thead>
+            <th></th>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Tags</th>
+        </thead>
+        <tbody>
+            {% for crypto in query %}
+                <tr>
+                    <td>
+                        <figure class="crypto-img-container">
+                            <img class="crypto-img" src="{{ crypto.logo }}" alt="{{ crypto.symbol }}">
+                        </figure>
+                    </td>
+                    <td>{{ crypto.rank }}</td>
+                    <td>{{ crypto.name }}</td>
+                    <td>{{ crypto.category }}</td>
+                    <td>
+                        {% for tag in crypto.tags %}
+                            <a>{{ tag }}</a>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock content %}

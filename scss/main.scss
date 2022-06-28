@@ -1,0 +1,320 @@
+@use 'global' as *;
+@use 'course_creation' as *;
+@use 'blog_entry_list' as *;
+@use 'blog_entry_prototype' as *;
+@use 'login' as *;
+@use 'coins_listing' as *;
+@use 'list_courses' as *;
+
+body {
+    background-color: $body-background-color;
+    /*background-image: url("https://media.istockphoto.com/photos/light-blue-denim-fabric-picture-id1057279920");*/
+    /*background-image: url("../assets/img/about_me.jpg");*/
+    background-position: center;
+    background-size: cover;
+    padding-top: 70px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header-logo {
+    font-family: $footer-font-family;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $heading-font-family;
+}
+
+main button, section button {
+    font-family: $button-font-family;
+    color: $btn-input-color;
+    background-color: transparent;
+    border-color: $btn-input-color;
+    font-size: 1rem;
+    height: 3rem;
+    border-radius: .5rem;
+
+    &:hover {
+        color: $hover-btn-input-color;
+        background-color: $btn-input-color;
+    }
+}
+
+input:focus, textarea:focus {
+    box-shadow: none;
+    border-color: $btn-input-color;
+}
+
+.navbar {
+    background-color: $navbar-background-color;
+}
+
+.mission, .about-me, .about-project, .leave-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 4rem;
+}
+
+.mission {
+    padding-top: 4rem;
+    text-align: center;
+
+    h1 {
+        font-size: 3rem;
+    }
+    p {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    button {
+        font-size: 2rem;
+        font-weight: 800;
+        width: 10rem;
+        height: 5rem;
+    }
+
+    &:hover {
+        p span {
+            font-weight: 900;
+        }
+        button {
+            transform: scale(1.1);
+        }
+    }
+    button:hover {
+        background-color: $btn-input-color;
+        border-color: $btn-input-color;
+        color: white;
+        font-size: 2rem;
+        width: 10rem;
+        height: 5rem;
+    }
+}
+
+.content, .about-project, .about-me, .leave-message {
+    .about-me-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+        align-items: center;
+        justify-items: center;
+        gap: 1rem;
+        padding: 2rem 5rem;
+
+        .card {
+            border-radius: 1rem;
+            border-style: none;
+            padding: 1rem;
+            grid-column: span 3;
+            font-weight: 100;
+
+            .card-title {
+                font-weight: 700;
+            }
+            .card-body {
+                padding: 1rem;
+                padding: .5rem 1.5rem;
+
+                h6 {
+                    padding-bottom: 1rem;
+                }
+            }
+        }
+        .figure-about {
+            height: 100%;
+            text-align: center;
+
+            .img-about {
+                border-radius: 1rem;
+                width: 100%;
+            }
+        }
+
+        &:hover {
+            .img-about {
+                transform: scale(0.9);
+            }
+        }
+    }
+}
+
+.content {
+    padding-bottom: 4rem;
+
+    h1 {
+        text-align: center;
+    }
+    .cards-of-content {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(18vw, 1fr));
+        padding: 2rem;
+        perspective: 10000px;
+
+        .card {
+            border-radius: 1rem;
+            border-bottom: 6px solid $card-border-color;
+            border-left: 4px solid $card-border-color;
+            background: $card-background-color;
+            transform: rotateX(-15deg);
+
+            .card-img {
+                border-radius: 1rem 1rem 0 0;
+
+                &:hover {
+                    border-radius: 1rem;
+                }
+            }
+        }
+        .clickable-card {
+            text-decoration: none;
+            color: black;
+
+            .img-bounce:hover {
+                animation: bounce 1s infinite;
+            }
+
+            &:hover {
+                color: black;
+            }
+        }
+
+        .card:hover {
+            border-style: none;
+            transform: rotateX(0deg);
+        }
+    }
+    &:hover {
+        .card {
+            transform: scale(0.9);
+        }
+    }
+}
+
+@keyframes bounce {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+}
+
+.about-project:hover, .about-me:hover {
+    .card {
+        transform: scale(1.05);
+    }
+    .img-about {
+        animation: swing 2s infinite;
+    }
+}
+
+@keyframes swing {
+    0% {
+      transform: rotateX(0) rotateY(180deg);
+    }
+    50% {
+        transform: rotateX(15deg) rotateY(0deg);
+    }
+    100% {
+        transform: rotateX(0) rotateY(180deg);
+    }
+}
+
+.leave-message {
+    button {
+        width: 100%;
+    }
+
+    &:hover .card {
+        transform: scale(1.1);
+    }
+}
+
+/*
+background: rgba(4, 4, 148, .3);
+    background: linear-gradient(0deg, rgba(4, 4, 148, .3) 0%, rgba(0, 132, 255, .1) 100%);
+
+background: rgba(4, 4, 148, .4);
+    background: linear-gradient(45deg, rgba(4, 4, 148, .4) 0%, rgba(0, 132, 255, .2) 100%);
+*/
+
+.fibo-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.fibo-img img {
+    width: 30%;
+    opacity: 0.3;
+    border-radius: 50%;
+}
+/*animation: logo-spin infinite 10s linear;*/
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 750px) {
+    .mission {
+        padding: 4rem 10vw;
+    }
+
+    .content, .about-project, .about-me, .leave-message {
+        .about-me-container {
+            padding: 2rem 5vw;
+            gap: 0;
+        }
+    }
+}
+
+.footer {
+    padding: 1rem 5vw 0 5vw;
+    margin-top: auto;
+    background-color: $footer-background-color;
+
+    .footer-logo {
+        text-align: center;
+        font-size: max(1.5rem, 4vw);
+        font-family: $footer-font-family;
+    }
+    .footer-copyright {
+        text-align: center;
+        font-size: calc(.5rem + .25vw);
+        margin-bottom: 1rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+    a {
+        text-decoration: none;
+        color: $footer-li-color;
+    }
+    ul {
+        padding-left: 0;
+        li {
+            list-style-type: none;
+            margin: .5rem 0;
+            font-size: .75rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .center-footer {
+        text-align: center;
+    }
+}

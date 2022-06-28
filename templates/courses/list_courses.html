@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block user_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:create_course' %}">Create course</a>
+    </li>
+{% endblock user_actions %}
+
+{% block session_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+    </li>
+{% endblock session_actions %}
+
+{% block content %}
+    <div class="content">
+        <table class="table table-hover courses-table">
+            <thead>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Media files</th>
+            </thead>
+            <tbody>
+                <tr>
+                {% for course in object_list %}
+                    <td><a href="{% url 'courses:course_details' course.pk %}">{{ course.title }}</a></td>
+                    <td>{{ course.slug }}</td>
+                    <td>
+                        {% for media in course.media_set %}
+                            {{ media.html_format|safe }}
+                        {% empty %}
+                            No media file attached.
+                        {% endfor %}
+                    </td>
+                {% empty %}
+                    <td>No courses yet.</td>
+                    <td></td>
+                    <td></td>
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

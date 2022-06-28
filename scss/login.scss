@@ -1,0 +1,132 @@
+@use 'global' as *;
+
+.sign-up-container, .sign-in-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    padding: 3rem 10rem;
+}
+
+.sign-up-container h2, .sign-in-container h2 {
+    font-weight: 600;
+}
+
+.sign-up-container .card, .sign-in-container .card {
+    border-style: none;
+}
+
+.sign-in-container .card-light-side {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.sign-in-container .card-dark-side {
+    background: #0084ff;
+    border-radius: 0 1rem 1rem 0;
+}
+
+@media (max-width: 965px) {
+    .sign-in-container .card-light-side {
+        border-radius: 1rem 1rem 0 0;
+    }
+
+    .sign-in-container .card-dark-side {
+        background: #0084ff;
+        border-radius: 0 0 1rem 1rem;
+    }
+}
+
+.sign-up-container .card-light-side {
+    border-radius: 0 1rem 1rem 0;
+}
+
+.sign-up-container .card-dark-side {
+    background: #0084ff;
+    border-radius: 1rem 0 0 1rem;
+}
+
+@media (max-width: 965px) {
+    .sign-up-container .card-light-side {
+        border-radius: 0 0 1rem 1rem;
+    }
+
+    .sign-up-container .card-dark-side {
+        background: #0084ff;
+        border-radius: 1rem 1rem 0 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .sign-up-container, .sign-in-container {
+        padding: 1rem;
+    }
+}
+
+.card-form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.card-form > * {
+    margin: 1rem;
+}
+
+.card-form button {
+    margin: 1rem;
+}
+
+.sign-in-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-up-container input:focus, .sign-up-container textarea:focus,
+.sign-in-container input:focus, .sign-in-container textarea:focus {
+    box-shadow: none;
+    border-color: #060657;
+}
+
+.btn-sign-in {
+    color: #060657;
+    background-color: transparent;
+    border-color: #060657;
+}
+
+.btn-sign-in:hover {
+    color: #fff;
+    border-color: #060657;
+    background-color: #060657;
+}
+
+.btn-sign-up {
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn-sign-up:hover {
+    color: #fff;
+    border-color: #060657;
+    background-color: #060657;
+}
+
+label[for=id_first_name], label[for=id_last_name],
+label[for=id_username], label[for=id_email],
+label[for=id_password], label[for=id_password_confirmation] {
+    display: none;
+}
+/*
+.card-move-left:hover {
+    transition-delay: 0s;
+    transition: .5s ease-in-out;
+    transform: translateX(-200px);
+}
+
+.card-move-right:hover {
+    transition-delay: 0s;
+    transition: .5s ease-in-out;
+    transform: translateX(200px);
+}
+*/

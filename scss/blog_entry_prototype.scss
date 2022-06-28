@@ -1,0 +1,119 @@
+@use 'global' as *;
+
+p {
+    padding: 0 0 1.5rem 0;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    line-height: 2rem;
+
+    .author-actions {
+        padding: 1rem 2rem;
+
+        .btn-actions {
+            display: flex;
+            text-align: center;
+            justify-content: space-between;
+
+            button {
+                border-style: none;
+
+                &:hover {
+                    color: $btn-actions-color;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    .course-content {
+        grid-column: span 3;
+        .headings {
+            margin-bottom: 2rem;
+
+            h3 {
+                margin: 1rem auto;
+            }
+            h5, h6 {
+                margin: 0 auto 1rem auto;
+            }
+        }
+        .course-block-w-image {
+            .course-img-r-in {
+                float: right;
+                figure {
+                    width: 15vw;
+                    margin: 0;
+                    padding-top: 1rem;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+                .text-muted {
+                    padding: 0;
+                    margin: 0;
+                    text-align: center;
+                }
+            }
+        }
+        .course-img-c-full {
+            figure {
+                width: 100%;
+                margin: 0;
+                padding-top: 1rem;
+
+                img {
+                    width: 100%;
+                }
+            }
+            .text-muted {
+                padding: 0;
+                margin: 0;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .columns {
+        display: flex;
+        flex-direction: column;
+        line-height: 2rem;
+
+        .course-content {
+            order: 1;
+            padding: 0 15vw;
+        }
+        .author-actions {
+            order: 2;
+            text-align: center;
+
+            .btn-actions {
+                display: flex;
+                text-align: center;
+                justify-content: center;
+
+                button {
+                    margin: 0 5vw;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .columns {
+        display: flex;
+        flex-direction: column;
+        line-height: 2rem;
+
+        .course-content {
+            order: 1;
+            padding: 0 5vw;
+        }
+    }
+}

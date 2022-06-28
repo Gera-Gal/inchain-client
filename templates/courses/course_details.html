@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block user_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:list_courses' %}">Courses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:create_course' %}">Create course</a>
+    </li>
+{% endblock user_actions %}
+
+{% block session_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+    </li>
+{% endblock session_actions %}
+
+{% block content %}
+<main class="columns">
+    <div class="author-actions" style="position: relative;">
+        <div class="sticky-side" style="position: sticky; top: 7rem;">
+            <div class="side-author">
+                <h6>Gerardo Galicia</h6>
+                <p>Software developer, blockchain enthusiast</p>
+            </div>
+            <div class="btn-actions">
+                <button type="button"><i class="fa-solid fa-comment"></i></button>
+                <button type="button"><i class="fa-solid fa-thumbs-up"></i></button>
+                <button type="button"><i class="fa-solid fa-bookmark"></i></button>
+            </div>
+        </div>
+    </div>
+    <article class="course-content">
+        {{ course|safe }}</p>
+    </article>
+    <div class="extras">
+    </div>
+</main>
+{% endblock %}

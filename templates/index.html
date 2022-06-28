@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block user_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:list_courses' %}">Courses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:create_course' %}">Create course</a>
+    </li>
+{% endblock user_actions %}
+
+{% block session_actions %}
+    {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Sign In</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:signup' %}">Sign Up</a>
+        </li>
+    {% endif %}
+{% endblock session_actions %}
+
+{% block content %}
+    <main class="mission">
+        <h1>Embark this exciting journey</h1>
+
+        <p>
+            Check the course cataloge and start learning <span>right away</span>
+        </p>
+        <button class="">Discover</button>
+    </main>
+    <section class="content">
+        <!--
+        <figure class="fibo-img">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Trinity_Trumpet_Fibonacci_Pattern.jpg" alt="">
+        </figure>
+        -->
+        <h1>Content</h1>
+        <div class="l-0">
+            <div class="cards-of-content">
+                <div class="card">
+                    <a href="#" class="clickable-card">
+                        <figure class="img-bounce">
+                            <img class="card-img" src="{% static 'assets/img/parque.webp' %}" alt="Education icons created by Freepik - Flaticon">
+                        </figure>
+                        <div class="card-body">
+                            <h5 class="card-title">Concepts</h5>
+                            <p class="card-text">
+                                Blockchain, consensus, wallets, all you must know
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="#" class="clickable-card">
+                        <figure class="img-bounce">
+                            <img class="card-img" src="{% static 'assets/img/parque.webp' %}" alt="Education icons created by Freepik - Flaticon">
+                        </figure>
+                        <div class="card-body">
+                            <h5 class="card-title">Examples</h5>
+                            <p class="card-text">
+                                Look some examples of what you can learn to do
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="./views/coins_listing.html" class="clickable-card">
+                        <figure class="img-bounce">
+                            <img class="card-img" src="https://cloudfront-us-east-1.images.arcpublishing.com/sdpnoticias/4RGYJJVV2ROUDB7V3VLBQBDLZI.jpg"
+                            data-toggle="tooltip" data-placement="top" title="Terms of Use: Image licensed under CC BY-ND 4.0. Original by QuoteInspector.com https://creativecommons.org/licenses/by-nd/4.0/">
+                        </figure>
+                        <div class="card-body">
+                            <h5 class="card-title">Cryptos</h5>
+                            <p class="card-text">
+                                Check crypto rankings and find your favourite projects
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="https://creativecommons.org/licenses/by/2.0/" class="clickable-card">
+                        <figure class="img-bounce">
+                            <img class="card-img" src="https://live.staticflickr.com/4415/36922633190_d60b028627_b.jpg"
+                            data-toggle="tooltip" data-placement="top" title="Terms of Use: Image licensed under CC BY 2.0. Steve Jennings in Getty Images for TechCrunch">
+                        </figure>
+                        <div class="card-body">
+                            <h5 class="card-title">Biographies</h5>
+                            <p class="card-text">
+                                Crypto universe has super cool people, get acquainted
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-project">
+            <h1 class="">About this project</h1>
+            <div class="about-me-container">
+                <figure class="figure-about">
+                    <img class="img-about" src="{% static 'assets/img/cascada.webp' %}">
+                </figure>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">In The Chain</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Self-paced crypto learning platform</h6>
+                        <p class="card-text">
+                            The pandemic represents a milestone in the lives of many people, in my case, it caused a series of isolated elements in my past to line up, leading me to the crypto universe.
+                        </p>
+                        <p class="card-text">
+                            With this project I seek to make available to anyone who needs it a set of resources to learn about blockchain and go from "what in the world is that" to <strong>"oh, blockchain, my old and dearest friend"</strong>.
+                        </p>
+                        <p class="card-text">
+                            At some point in the development of this platform, rankings of crypto assets, influential people, videos and readings will be available so that you can find your favorite crypto project or crypto projects.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="about-me">
+            <h1 class="">About me</h1>
+            <div class="about-me-container">
+                <figure class="figure-about">
+                    <img class="img-about" src="{% static 'assets/img/about_me.webp' %}">
+                </figure>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gerardo Galicia</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Full Stack Developer</h6>
+                        <p class="card-text">
+                            Pragmatic and eclectic, I am an engineer passionate about new technologies with a special interest in AI, Data & Blockchain.
+                        </p>
+                        <p class="card-text">
+                            I love to understand how things work, going in both directions: the low level (technical subtleties) and the high level (languages, architectures, up to quality attributes and customer satisfaction).
+                        </p>
+                        <p class="card-text">
+                            My favorite hobby is learning languages and diving into new cultures.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="">
+        <article class="leave-message">
+            <h1 class="">Drop me a line</h1>
+            <div class="about-me-container">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="creation-form">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="messageName" placeholder="Name">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="messageSubject" placeholder="Subject">
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="messageEmail" placeholder="Email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="messageContent" placeholder="Share love and ideas here"></textarea>
+                            </div>
+                            <button type="submit" class="">Send message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock content %}

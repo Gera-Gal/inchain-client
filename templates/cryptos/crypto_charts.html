@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block user_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:list_courses' %}">Courses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:create_course' %}">Create course</a>
+    </li>
+{% endblock user_actions %}
+
+{% block session_actions %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+    </li>
+{% endblock session_actions %}
+
+{% block content %}
+<main class="cryptos-container">
+    <div class="row top-n-containter">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+        </div>
+        <div class="col-md-2">
+            <label for="top-n" class="form-label">Top N</label>
+            <select class="form-select" name="top-n" id="top-n">
+                <option value="5">5</option>
+                <option value="10">10</option>
+            </select>
+            <label for="reference-currency" class="form-label">Reference currency</label>
+            <select class="form-select" name="reference-currency" id="reference-currency">
+                <option value="mxn">MXN</option>
+                <option value="usd">USD</option>
+            </select>
+            <br>
+            <button id="charts-button" style="width: 100%;">Search</button>
+        </div>
+    </div>
+    <table id="crypto-quote-table" class="table table-hover vertical-align crypto-quote-table">
+        <thead>
+            <th></th>
+            <th>Rank</th>
+            <th class="sortable-col" onclick="sortTable(2, 'w')">Name</th>
+            <th class="sortable-col" onclick="sortTable(3, 'w')">Type</th>
+            <th class="sortable-col" onclick="sortTable(4, 'd')">Max</th>
+            <th class="sortable-col" onclick="sortTable(5, 'd')">Price</th>
+            <th class="sortable-col" onclick="sortTable(6, 'd')">Circulating</th>
+            <th class="sortable-col" onclick="sortTable(7, 'd')">Total</th>
+            <th class="sortable-col" onclick="sortTable(8, 'd')">Market cap</th>
+            <th class="sortable-col" onclick="sortTable(9, 'd')">Dominance</th>
+        </thead>
+        <tbody class="crypto-listing">
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script>
+        function sortTable(n, type) {
+            let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("crypto-quote-table");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place,
+                    based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (type == "d")
+                            if (Number(x.dataset.value) > Number(y.dataset.value)) {
+                                //if so, mark as a switch and break the loop:
+                                shouldSwitch = true;
+                                break;
+                            }
+                        if (type == "w")
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                // If so, mark as a switch and break the loop:
+                                shouldSwitch = true;
+                                break;
+                            }
+                    } else if (dir == "desc") {
+                        if (type == "d")
+                            if (Number(x.dataset.value) < Number(y.dataset.value)) {
+                                //if so, mark as a switch and break the loop:
+                                shouldSwitch = true;
+                                break;
+                            }
+                        if (type == "w")
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                // If so, mark as a switch and break the loop:
+                                shouldSwitch = true;
+                                break;
+                            }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        function random_aesthetic_rgb(n) {
+            let num = Math.floor(((0xffffff * Math.random()) + 0xffffff) / 2);
+            let rgbs = [];
+            for (i = 0; i < n; i++) {
+                rgbs.push('#' + num.toString(16));
+                num = (num + 0x00f000) % 0xffffff;
+            }
+            return rgbs;
+        }
+
+        const cryptosChart = new Chart("myChart", {
+                type: "doughnut",
+                data: {
+                    labels: [],
+                    datasets: [{
+                        backgroundColor: [],
+                        data: []
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Crypto Market Cap Dominance"
+                    }
+                }
+            });
+
+        function renderTopN(referenceCurrency, n) {
+            $.getJSON('/cryptos/_get_listing', {'reference-currency': referenceCurrency, 'n': n}, function(crypto_listing) {
+                let crypto_cards = document.querySelector('.crypto-listing');
+                crypto_cards.innerHTML = '';
+                crypto_listing = crypto_listing.sort((a, b) => a.rank - b.rank);
+
+                cryptosChart.data.labels = crypto_listing.map(crypto => { return crypto.name });
+                cryptosChart.data.datasets[0].backgroundColor = random_aesthetic_rgb(n);
+                cryptosChart.data.datasets[0].data = crypto_listing.map(crypto => { return crypto.quote[Object.keys(crypto.quote)[0]].market_cap_dominance });
+                cryptosChart.update();
+
+                crypto_listing.forEach(crypto => {
+                    quote = crypto.quote[Object.keys(crypto.quote)[0]]
+                    if(crypto.max_supply == null)
+                        crypto.max_supply = Number.MAX_SAFE_INTEGER;
+                    const cryptoRow = document.createElement('tr');
+                    cryptoRow.className += '';
+                    cryptoRow.innerHTML = `
+                    <td>
+                        <figure class="crypto-img-container">
+                        <img class="crypto-img" src="${crypto.logo}" alt="${crypto.symbol}">
+                        </figure>
+                    </td>
+                    <td>${crypto.rank}</td>
+                    <td>${crypto.name}</td>
+                    <td>${crypto.category}</td>
+                    <td class="align-table-number" data-value="${crypto.max_supply}">
+                    ${
+                        crypto.max_supply == Number.MAX_SAFE_INTEGER ? 'Uncapped' : crypto.max_supply
+                    }
+                    </td>
+                    <td class="align-table-number" data-value="${quote.price}">${quote.price
+                        .toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2})}</td>
+                    <td class="align-table-number" data-value="${crypto.circulating_supply}">${crypto.circulating_supply
+                        .toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2})}</td>
+                    <td class="align-table-number" data-value="${crypto.total_supply}">${crypto.total_supply
+                        .toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2})}</td>
+                    <td class="align-table-number" data-value="${quote.market_cap}">${quote.market_cap
+                        .toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2})}</td>
+                    <td class="align-table-number" data-value="${quote.market_cap_dominance}">${quote.market_cap_dominance
+                        .toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2})}</td>
+                    `
+                    crypto_cards.appendChild(cryptoRow);
+                })
+            });
+        }
+        renderTopN('mxn',5);
+
+        document.querySelector('#charts-button').addEventListener('click', () => {
+            renderTopN(
+                document.querySelector('#reference-currency').value,
+                document.querySelector('#top-n').value
+            );
+        });
+    </script>
+</main>
+{% endblock content %}
