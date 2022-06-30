@@ -1,0 +1,1 @@
+web: gunicorn inchain_front.wsgi --log-file -
