@@ -8,7 +8,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default=['inchain-server.herokuapp.com'])
+ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default=['inchain-client.herokuapp.com'])
 
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware', ]
 
