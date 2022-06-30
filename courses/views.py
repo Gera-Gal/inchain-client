@@ -17,12 +17,10 @@ class ListCoursesView(generic_views.ListView):
         context['now'] = timezone.now()
         context['course_set'] = []
         for course in context['object_list']:
-            print(type(course))
             course_with_media = course.__dict__
             course_with_media['media_set'] = []
             course_with_media['media_set'].extend(MediaFile.objects.filter(course_id=course.id))
             context['course_set'].append(course_with_media)
-        print(context)
         return context
 
 class CreateCourseView(generic_views.FormView):
@@ -39,7 +37,6 @@ class CreateCourseView(generic_views.FormView):
 
     def form_valid(self, form):
         course = form.save()
-        print(course)
         return super().form_valid(form)
 
 class CourseDetailsView(generic_views.DetailView):

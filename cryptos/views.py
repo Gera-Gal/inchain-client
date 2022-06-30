@@ -31,7 +31,6 @@ def get_listing(request):
     res = conn.getresponse()
     json_info_data = res.read()
     json_info_data = json.loads(json_info_data.decode("utf-8"))['data']
-    print("/v2/cryptocurrency/quotes/latest?symbol={0}{1}".format(coins_for_query, reference_currency))
     conn.request("GET", "/v2/cryptocurrency/quotes/latest?symbol={0}{1}".format(coins_for_query, reference_currency), payload, headers)
     res = conn.getresponse()
     json_quotes_data = res.read()

@@ -46,7 +46,7 @@ class CreateCourseForm(forms.Form):
         course = Course.objects.create(**course_data)
         for key in course_keys:
             media_data.pop(key)
-        print('course: {}'.format(course), 'media: {}'.format(media_data))
+        #print('course: {}'.format(course), 'media: {}'.format(media_data))
         media_data['course_id'] = course.id
         media = MediaFile.objects.create(**media_data)
-        print(course, media)
+        #print(course, media)
