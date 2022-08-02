@@ -1,4 +1,6 @@
 from django import forms
+from django.db import transaction
+
 from .models import MediaFile, Course
 
 format_choices = [
@@ -36,16 +38,20 @@ class CreateCourseForm(forms.Form):
         return data
 
     def save(self):
-        media_keys = ['caption', 'media_file', 'format', 'argument_number']
-        course_keys = ['title', 'content', 'slug']
-        course_data = self.cleaned_data.copy()
-        media_data = self.cleaned_data.copy()
-        for key in media_keys:
-            course_data.pop(key)
-        course = Course.objects.create(**course_data)
-        for key in course_keys:
-            media_data.pop(key)
-        #print('course: {}'.format(course), 'media: {}'.format(media_data))
-        media_data['course_id'] = course.id
-        media = MediaFile.objects.create(**media_data)
-        #print(course, media)
+        try:
+            with transaction.atomic():
+                media_keys = ['caption', 'media_file', 'format', 'argument_number']
+                course_keys = ['title', 'content', 'slug']
+                course_data = self.cleaned_data.copy()
+                media_data = self.cleaned_data.copy()
+                for key in media_keys:
+                    course_data.pop(key)
+                course = Course.objects.create(**course_data)
+                for key in course_keys:
+                    media_data.pop(key)
+                #print('course: {}'.format(course), 'media: {}'.format(media_data))
+                media_data['course_id'] = course.id
+                media = MediaFile.objects.create(**media_data)
+                return course, media
+        except Exception as e:
+            return e

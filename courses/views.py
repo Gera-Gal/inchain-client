@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic as generic_views
+from numpy import isin
 
 from .forms import CreateCourseForm
 from .models import Course, MediaFile
@@ -27,16 +28,12 @@ class CreateCourseView(generic_views.FormView):
     form_class = CreateCourseForm
     success_url = reverse_lazy('courses:list_courses')
 
-    '''
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(self.success_url)
-        return super().dispatch(request, *args, **kwargs)
-    '''
-
     def form_valid(self, form):
-        course = form.save()
-        return super().form_valid(form)
+        result = form.save()
+        if isinstance(result, Exception):
+            print(result)
+        else:
+            return super().form_valid(form)
 
 class CourseDetailsView(generic_views.DetailView):
     template_engine = 'courses/course_details.html'
