@@ -22,8 +22,8 @@
                 <th>Media files</th>
             </thead>
             <tbody>
-                <tr>
                 {% for course in object_list %}
+                <tr>
                     <td><a href="{% url 'courses:course_details' course.pk %}">{{ course.title }}</a></td>
                     <td>{{ course.slug }}</td>
                     <td>
@@ -37,8 +37,8 @@
                     <td>No courses yet.</td>
                     <td></td>
                     <td></td>
-                {% endfor %}
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

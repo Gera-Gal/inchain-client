@@ -1,3 +1,4 @@
+/*$navbar-background-color: rgba(0, 0, 0, 0.7);*/
 .course-creation-container {
   padding: 2rem 5rem;
 }
@@ -311,6 +312,15 @@ body {
 
 .header-logo {
   font-family: "Bakbak One", cursive;
+  display: flex;
+}
+.header-logo > figure {
+  margin: 0;
+  padding: 0;
+}
+.header-logo > p {
+  margin: 0 0 0 0.5rem;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -337,7 +347,7 @@ input:focus, textarea:focus {
 }
 
 .navbar {
-  background-color: #fff;
+  background-color: white;
 }
 
 .mission, .about-me, .about-project, .leave-message {
