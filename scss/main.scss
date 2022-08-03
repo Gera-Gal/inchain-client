@@ -331,6 +331,18 @@ background: rgba(4, 4, 148, .4);
             flex-direction: column;
         }
     }
+    .content, .about-project, .about-me, .leave-message {
+        .about-me-container {
+            display: flex;
+            flex-direction: column;
+
+            .figure-about {
+                .img-about {
+                    width: 50%;
+                }
+            }
+        }
+    }
     .center-footer {
         text-align: center;
     }

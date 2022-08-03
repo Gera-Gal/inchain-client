@@ -584,6 +584,14 @@ background: rgba(4, 4, 148, .4);
     flex-direction: column;
   }
 
+  .content .about-me-container, .about-project .about-me-container, .about-me .about-me-container, .leave-message .about-me-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .content .about-me-container .figure-about .img-about, .about-project .about-me-container .figure-about .img-about, .about-me .about-me-container .figure-about .img-about, .leave-message .about-me-container .figure-about .img-about {
+    width: 50%;
+  }
+
   .center-footer {
     text-align: center;
   }
