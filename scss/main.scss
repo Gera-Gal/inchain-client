@@ -325,6 +325,12 @@ background: rgba(4, 4, 148, .4);
 }
 
 @media (max-width: 768px) {
+    .content {
+        .cards-of-content {
+            display: flex;
+            flex-direction: column;
+        }
+    }
     .center-footer {
         text-align: center;
     }
